@@ -135,6 +135,9 @@ h3.sub-title{
 .social li.rss a:hover {
 	background:#ff6600;
 }
+.social li.blogger a:hover {
+	background:#ff6600;
+}
 .social li.github a:hover {
 	background:#4078c0;
 }
