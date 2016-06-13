@@ -18,7 +18,8 @@ $('#contactform').submit(function(){
 	$.post(action, {
 		name: $('#name').val(),
 		email: $('#email').val(),
-		phone: $('#phone').val()
+		phone: $('#phone').val(),
+		comments: $('#comments').val()
 	},
 		function(data){
 			document.getElementById('message').innerHTML = data;
@@ -50,9 +51,8 @@ $('#contactform').submit(function(){
 		navigation: '.pageScrollerNav',
 		scrollOffset: -55,
 	});
-		
 	$(".work a").click(function(e) {
-		$(this).parent().find('.project-lightbox').show();
+		$(this).parent().find('.project-lightbox').clone('.project-lightbox').appendTo('body').show();
 		$("body").css({"overflow":"hidden"});
 		return false;
 	});  		
@@ -83,4 +83,34 @@ $('#contactform').submit(function(){
 	// Get window height and put in to homepage image
 	var wheight = $(window).height();
 	$(".showcase").css("height",wheight);
+	
+	// Animation Appear
+	$("[data-appear-animation]").each(function() {
+	
+		var $this = $(this);
+	  
+		$this.addClass("appear-animation");
+	  
+		if(!$("html").hasClass("no-csstransitions") && $(window).width() > 767) {
+	  
+			$this.appear(function() {
+	  
+				var delay = ($this.attr("data-appear-animation-delay") ? $this.attr("data-appear-animation-delay") : 1);
+	  
+				if(delay > 1) $this.css("animation-delay", delay + "ms");
+				$this.addClass($this.attr("data-appear-animation"));
+	  
+				setTimeout(function() {
+					$this.addClass("appear-animation-visible");
+				}, delay);
+	  
+			}, {accX: 0, accY: -150});
+	  
+		} else {
+	  
+			$this.addClass("appear-animation-visible");
+	  
+		}
+	
+	});
 });	

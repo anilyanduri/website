@@ -191,9 +191,160 @@ b.fn.spin.presets={tiny:{lines:8,length:2,width:2,radius:3},small:{lines:8,lengt
  * Tweetie: A simple Twitter feed plugin
  * Author: Sonny T. <hi@sonnyt.com>, sonnyt.com
  */
-// (function($){$.fn.twittie=function(options){var settings=$.extend({'count':10,'hideReplies':false,'dateFormat':'%b/%d/%Y','template':'{{date}} - {{tweet}}'},options);var linking=function(tweet){var parts=tweet.split(' ');var twit='';for(var i=0,len=parts.length;i<len;i++){var text=parts[i];var link="https://twitter.com/#!/";if(text.indexOf('#')!==-1){text='<a href="'+link+'search/'+text.replace('#','%23').replace(/[^A-Za-z0-9]/,'')+'" target="_blank">'+text+'</a>'}if(text.indexOf('@')!==-1){text='<a href="'+link+text.replace('@','').replace(/[^A-Za-z0-9]/,'')+'" target="_blank">'+text+'</a>'}if(text.indexOf('http://')!==-1){text='<a href="'+text+'" target="_blank">'+text+'</a>'}twit+=text+' '}return twit};var dating=function(twt_date){var time=twt_date.split(' ');twt_date=new Date(Date.parse(time[1]+' '+time[2]+', '+time[5]+' '+time[3]+' UTC'));var months=['January','February','March','April','May','June','July','August','September','October','November','December'];var _date={'%d':twt_date.getDate(),'%m':twt_date.getMonth()+1,'%b':months[twt_date.getMonth()].substr(0,3),'%B':months[twt_date.getMonth()],'%y':String(twt_date.getFullYear()).slice(-2),'%Y':twt_date.getFullYear()};var date=settings.dateFormat;var format=settings.dateFormat.match(/%[dmbByY]/g);for(var i=0,len=format.length;i<len;i++){date=date.replace(format[i],_date[format[i]])}return date};var templating=function(data){var temp=settings.template;var temp_variables=['date','tweet','avatar'];for(var i=0,len=temp_variables.length;i<len;i++){temp=temp.replace(new RegExp('{{'+temp_variables[i]+'}}','gi'),data[temp_variables[i]])}return temp};this.html('<span>Loading...</span>');var that=this;$.getJSON('api/tweet.php',{count:settings.count,exclude_replies:settings.hideReplies},function(twt){that.find('span').fadeOut('fast',function(){that.html('<ul></ul>');for(var i=0;i<settings.count;i++){if(twt[i]){var temp_data={date:dating(twt[i].created_at),tweet:linking(twt[i].text),avatar:'<img src="'+twt[i].user.profile_image_url+'" />'};that.find('ul').append('<li>'+templating(temp_data)+'</li>')}else{break}}})})}})(jQuery);
+(function($){$.fn.twittie=function(options){var settings=$.extend({'count':10,'hideReplies':false,'dateFormat':'%b/%d/%Y','template':'{{date}} - {{tweet}}'},options);var linking=function(tweet){var parts=tweet.split(' ');var twit='';for(var i=0,len=parts.length;i<len;i++){var text=parts[i];var link="https://twitter.com/#!/";if(text.indexOf('#')!==-1){text='<a href="'+link+'search/'+text.replace('#','%23').replace(/[^A-Za-z0-9]/,'')+'" target="_blank">'+text+'</a>'}if(text.indexOf('@')!==-1){text='<a href="'+link+text.replace('@','').replace(/[^A-Za-z0-9]/,'')+'" target="_blank">'+text+'</a>'}if(text.indexOf('http://')!==-1){text='<a href="'+text+'" target="_blank">'+text+'</a>'}twit+=text+' '}return twit};var dating=function(twt_date){var time=twt_date.split(' ');twt_date=new Date(Date.parse(time[1]+' '+time[2]+', '+time[5]+' '+time[3]+' UTC'));var months=['January','February','March','April','May','June','July','August','September','October','November','December'];var _date={'%d':twt_date.getDate(),'%m':twt_date.getMonth()+1,'%b':months[twt_date.getMonth()].substr(0,3),'%B':months[twt_date.getMonth()],'%y':String(twt_date.getFullYear()).slice(-2),'%Y':twt_date.getFullYear()};var date=settings.dateFormat;var format=settings.dateFormat.match(/%[dmbByY]/g);for(var i=0,len=format.length;i<len;i++){date=date.replace(format[i],_date[format[i]])}return date};var templating=function(data){var temp=settings.template;var temp_variables=['date','tweet','avatar'];for(var i=0,len=temp_variables.length;i<len;i++){temp=temp.replace(new RegExp('{{'+temp_variables[i]+'}}','gi'),data[temp_variables[i]])}return temp};this.html('<span>Loading...</span>');var that=this;$.getJSON('api/tweet.php',{count:settings.count,exclude_replies:settings.hideReplies},function(twt){that.find('span').fadeOut('fast',function(){that.html('<ul></ul>');for(var i=0;i<settings.count;i++){if(twt[i]){var temp_data={date:dating(twt[i].created_at),tweet:linking(twt[i].text),avatar:'<img src="'+twt[i].user.profile_image_url+'" />'};that.find('ul').append('<li>'+templating(temp_data)+'</li>')}else{break}}})})}})(jQuery);
 
 /* ==============================================================
 =============== Placeholder plugin ================================
 ============================================================== */
 (function(t){"use strict";function e(t,e,r){return t.addEventListener?t.addEventListener(e,r,!1):t.attachEvent?t.attachEvent("on"+e,r):void 0}function r(t,e){var r,n;for(r=0,n=t.length;n>r;r++)if(t[r]===e)return!0;return!1}function n(t,e){var r;t.createTextRange?(r=t.createTextRange(),r.move("character",e),r.select()):t.selectionStart&&(t.focus(),t.setSelectionRange(e,e))}function a(t,e){try{return t.type=e,!0}catch(r){return!1}}t.Placeholders={Utils:{addEventListener:e,inArray:r,moveCaret:n,changeType:a}}})(this),function(t){"use strict";function e(t){var e;return t.value===t.getAttribute(S)&&"true"===t.getAttribute(I)?(t.setAttribute(I,"false"),t.value="",t.className=t.className.replace(R,""),e=t.getAttribute(P),e&&(t.type=e),!0):!1}function r(t){var e;return""===t.value?(t.setAttribute(I,"true"),t.value=t.getAttribute(S),t.className+=" "+k,e=t.getAttribute(P),e?t.type="text":"password"===t.type&&H.changeType(t,"text")&&t.setAttribute(P,"password"),!0):!1}function n(t,e){var r,n,a,u,i;if(t&&t.getAttribute(S))e(t);else for(r=t?t.getElementsByTagName("input"):r,n=t?t.getElementsByTagName("textarea"):n,i=0,u=r.length+n.length;u>i;i++)a=r.length>i?r[i]:n[i-r.length],e(a)}function a(t){n(t,e)}function u(t){n(t,r)}function i(t){return function(){f&&t.value===t.getAttribute(S)&&"true"===t.getAttribute(I)?H.moveCaret(t,0):e(t)}}function l(t){return function(){r(t)}}function c(t){return function(e){return p=t.value,"true"===t.getAttribute(I)?!(p===t.getAttribute(S)&&H.inArray(C,e.keyCode)):void 0}}function o(t){return function(){var e;"true"===t.getAttribute(I)&&t.value!==p&&(t.className=t.className.replace(R,""),t.value=t.value.replace(t.getAttribute(S),""),t.setAttribute(I,!1),e=t.getAttribute(P),e&&(t.type=e)),""===t.value&&(t.blur(),H.moveCaret(t,0))}}function s(t){return function(){t===document.activeElement&&t.value===t.getAttribute(S)&&"true"===t.getAttribute(I)&&H.moveCaret(t,0)}}function d(t){return function(){a(t)}}function g(t){t.form&&(x=t.form,x.getAttribute(U)||(H.addEventListener(x,"submit",d(x)),x.setAttribute(U,"true"))),H.addEventListener(t,"focus",i(t)),H.addEventListener(t,"blur",l(t)),f&&(H.addEventListener(t,"keydown",c(t)),H.addEventListener(t,"keyup",o(t)),H.addEventListener(t,"click",s(t))),t.setAttribute(j,"true"),t.setAttribute(S,y),r(t)}var v,b,f,h,p,m,A,y,E,x,T,N,L,w=["text","search","url","tel","email","password","number","textarea"],C=[27,33,34,35,36,37,38,39,40,8,46],B="#ccc",k="placeholdersjs",R=RegExp("\\b"+k+"\\b"),S="data-placeholder-value",I="data-placeholder-active",P="data-placeholder-type",U="data-placeholder-submit",j="data-placeholder-bound",V="data-placeholder-focus",q="data-placeholder-live",z=document.createElement("input"),D=document.getElementsByTagName("head")[0],F=document.documentElement,G=t.Placeholders,H=G.Utils;if(void 0===z.placeholder){for(v=document.getElementsByTagName("input"),b=document.getElementsByTagName("textarea"),f="false"===F.getAttribute(V),h="false"!==F.getAttribute(q),m=document.createElement("style"),m.type="text/css",A=document.createTextNode("."+k+" { color:"+B+"; }"),m.styleSheet?m.styleSheet.cssText=A.nodeValue:m.appendChild(A),D.insertBefore(m,D.firstChild),L=0,N=v.length+b.length;N>L;L++)T=v.length>L?v[L]:b[L-v.length],y=T.getAttribute("placeholder"),y&&H.inArray(w,T.type)&&g(T);E=setInterval(function(){for(L=0,N=v.length+b.length;N>L;L++)T=v.length>L?v[L]:b[L-v.length],y=T.getAttribute("placeholder"),y&&H.inArray(w,T.type)&&(T.getAttribute(j)||g(T),(y!==T.getAttribute(S)||"password"===T.type&&!T.getAttribute(P))&&("password"===T.type&&!T.getAttribute(P)&&H.changeType(T,"text")&&T.setAttribute(P,"password"),T.value===T.getAttribute(S)&&(T.value=y),T.setAttribute(S,y)));h||clearInterval(E)},100)}G.disable=a,G.enable=u}(this);
+
+/*
+ * jQuery.appear
+ * https://github.com/bas2k/jquery.appear/
+ * http://code.google.com/p/jquery-appear/
+ *
+ * Copyright (c) 2009 Michael Hixson
+ * Copyright (c) 2012 Alexander Brovikov
+ * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+ */
+(function($) {
+  $.fn.appear = function(fn, options) {
+
+    var settings = $.extend({
+
+      //arbitrary data to pass to fn
+      data: undefined,
+
+      //call fn only on the first appear?
+      one: true,
+
+      // X & Y accuracy
+      accX: 0,
+      accY: 0
+
+    }, options);
+
+    return this.each(function() {
+
+      var t = $(this);
+
+      //whether the element is currently visible
+      t.appeared = false;
+
+      if (!fn) {
+
+        //trigger the custom event
+        t.trigger('appear', settings.data);
+        return;
+      }
+
+      var w = $(window);
+
+      //fires the appear event when appropriate
+      var check = function() {
+
+        //is the element hidden?
+        if (!t.is(':visible')) {
+
+          //it became hidden
+          t.appeared = false;
+          return;
+        }
+
+        //is the element inside the visible window?
+        var a = w.scrollLeft();
+        var b = w.scrollTop();
+        var o = t.offset();
+        var x = o.left;
+        var y = o.top;
+
+        var ax = settings.accX;
+        var ay = settings.accY;
+        var th = t.height();
+        var wh = w.height();
+        var tw = t.width();
+        var ww = w.width();
+
+        if (y + th + ay >= b &&
+          y <= b + wh + ay &&
+          x + tw + ax >= a &&
+          x <= a + ww + ax) {
+
+          //trigger the custom event
+          if (!t.appeared) t.trigger('appear', settings.data);
+
+        } else {
+
+          //it scrolled out of view
+          t.appeared = false;
+        }
+      };
+
+      //create a modified fn with some additional logic
+      var modifiedFn = function() {
+
+        //mark the element as visible
+        t.appeared = true;
+
+        //is this supposed to happen only once?
+        if (settings.one) {
+
+          //remove the check
+          w.unbind('scroll', check);
+          var i = $.inArray(check, $.fn.appear.checks);
+          if (i >= 0) $.fn.appear.checks.splice(i, 1);
+        }
+
+        //trigger the original fn
+        fn.apply(this, arguments);
+      };
+
+      //bind the modified fn to the element
+      if (settings.one) t.one('appear', settings.data, modifiedFn);
+      else t.bind('appear', settings.data, modifiedFn);
+
+      //check whenever the window scrolls
+      w.scroll(check);
+
+      //check whenever the dom changes
+      $.fn.appear.checks.push(check);
+
+      //check now
+      (check)();
+    });
+  };
+
+  //keep a queue of appearance checks
+  $.extend($.fn.appear, {
+
+    checks: [],
+    timeout: null,
+
+    //process the queue
+    checkAll: function() {
+      var length = $.fn.appear.checks.length;
+      if (length > 0) while (length--) ($.fn.appear.checks[length])();
+    },
+
+    //check the queue asynchronously
+    run: function() {
+      if ($.fn.appear.timeout) clearTimeout($.fn.appear.timeout);
+      $.fn.appear.timeout = setTimeout($.fn.appear.checkAll, 20);
+    }
+  });
+
+  //run checks when these methods are called
+  $.each(['append', 'prepend', 'after', 'before', 'attr',
+    'removeAttr', 'addClass', 'removeClass', 'toggleClass',
+    'remove', 'css', 'show', 'hide'], function(i, n) {
+    var old = $.fn[n];
+    if (old) {
+      $.fn[n] = function() {
+        var r = old.apply(this, arguments);
+        $.fn.appear.run();
+        return r;
+      }
+    }
+  });
+
+})(jQuery);
