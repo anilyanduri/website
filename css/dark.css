@@ -150,6 +150,15 @@ h3.sub-title{
 .clients .page-heading .breaker {
 	background:#fff
 }
+.awards {
+	background:#00b4ff;
+}
+.awards .page-heading h2 {
+	color:#fff;
+}
+.awards .page-heading .breaker {
+	background:#fff
+}
 .contact {
 	background:#fff;
 }
